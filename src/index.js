@@ -1,23 +1,26 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
+import React from "react";
+import axios from "axios";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { store } from "./app/store";
+import App from "./App";
+import theme from "./theme";
+import { API_SERVER } from "./Utils/const";
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 const root = createRoot(container);
+
+axios.defaults.baseURL = API_SERVER;
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
